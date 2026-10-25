@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dmg-he"
+version = "1.0.0"
+description = "Prediction of multiplexed immunofluorescence marker positivity from virtual H&E tiles of a pediatric DMG tissue microarray"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "lightgbm>=4.3",
+    "joblib",
+    "pyyaml",
+    "tifffile",
+    "pillow",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+# PyTorch-based extractors: RetCCL, CTransPath, UNI, Virchow, Prov-GigaPath
+torch = ["torch", "torchvision", "timm>=0.9.8", "huggingface_hub"]
+# REMEDIS (TensorFlow Hub SavedModel)
+remedis = ["tensorflow", "tensorflow-hub"]
+# lazy reading of compressed whole-slide TIFFs
+zarr = ["zarr<3", "imagecodecs"]
+dev = ["pytest"]
+
+[project.scripts]
+dmg-he = "dmg_he.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+dmg_he = ["default_config.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

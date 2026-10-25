@@ -1,0 +1,131 @@
+# =====================================================================
+# dmg-he configuration
+#
+# Create your own copy with:   dmg-he init-config my_config.yaml
+# Relative paths are resolved relative to the location of this file.
+# =====================================================================
+
+# --- Paths ------------------------------------------------------------
+data_dir: data        # folder containing the raw input files listed below
+work_dir: work        # all intermediate files, models and results go here
+
+# --- Input files (inside data_dir) -----------------------------------
+# One entry per TMA block. The "train" block is used for training and
+# cross-validation, the "test" block is the cross-block test set.
+blocks:
+  train:
+    id: 272
+    cells: TMA272_cellbycell_bundles_1_2_3_without_N_Cores.csv   # QuPath cell-by-cell export
+    thresholds: Thresholds_by_cores_all_re_segmentation_RevisionNatCom_Final_272.csv
+    slide: S21110002_VHE_wholeslide_Train.tif                    # virtual H&E whole-slide image
+  test:
+    id: 273
+    cells: TMA273_cellbycell_bundles_1_2_3.csv
+    thresholds: Thresholds_by_cores_all_re_segmentation_RevisionNatCom_Final_273.csv
+    slide: S21110003_VHE_wholeslide_Test.tif
+
+metadata: TMA_Metadata_Sample_information.csv   # one row per core and block
+
+# --- Column names ------------------------------------------------------
+cell_table:
+  core_column: TMA core
+  x_column: auto          # "auto" = first column starting with "Centroid X" (in µm)
+  y_column: auto          # "auto" = first column starting with "Centroid Y" (in µm)
+  min_cells_per_core: 10  # cores with fewer segmented cells are skipped
+
+metadata_columns:
+  core: Name
+  block: TMA
+  patient: PID
+  diagnosis: Diagnosis
+  dissemination: Dissemination
+
+# Diagnoses counted as DMG (used for stratifying the CV split and for subgroups)
+dmg_diagnoses: [DIPG, DMG spinal, DMG Thalamic, DMG Medulla, DMG cerebellum]
+control_diagnoses: [CNTRL]
+
+# --- Markers -------------------------------------------------------------
+# label name: name used in the threshold file and the cell compartment whose
+# mean intensity is compared to the threshold. The intensity column in the
+# cell table is "<compartment>: <label name> mean".
+markers:
+  CD3:      {threshold_name: CD3,      compartment: Cell}
+  SOX2:     {threshold_name: SOX2,     compartment: Nucleus}
+  CD31:     {threshold_name: CD31,     compartment: Cell}
+  CD163:    {threshold_name: CD163,    compartment: Cell}
+  CD34:     {threshold_name: CD34,     compartment: Cell}
+  HUD:      {threshold_name: HUD,      compartment: Cell}
+  MBP:      {threshold_name: MBP,      compartment: Cell}
+  IBA1:     {threshold_name: Iba1,     compartment: Cell}
+  CD8:      {threshold_name: CD8,      compartment: Cell}
+  PD1:      {threshold_name: PD1,      compartment: Cell}
+  NESTIN:   {threshold_name: Nestin,   compartment: Cell}
+  VDAC:     {threshold_name: VDAC,     compartment: Cell}
+  VIMENTIN: {threshold_name: Vimentin, compartment: Cell}
+  PDL1:     {threshold_name: PDL1,     compartment: Cell}
+  VEGFR2:   {threshold_name: VGFR2,    compartment: Cell}
+  GFAP:     {threshold_name: GFAP,     compartment: Cell}
+  STAT3:    {threshold_name: Stat3,    compartment: Cell}
+  KI67:     {threshold_name: KI-67,    compartment: Nucleus}
+  CD68:     {threshold_name: CD68,     compartment: Cell}
+  PDGFRA:   {threshold_name: PDGFR,    compartment: Cell}
+  H3K27M:   {threshold_name: H3K27M,   compartment: Nucleus}
+  B7H3:     {threshold_name: B7H3,     compartment: Cell}
+
+# --- Tiling ---------------------------------------------------------------
+tiling:
+  resolution_um_per_px: 0.325   # pixel size of the virtual H&E slide
+  tile_size_um: 100             # tile edge length
+  stride_fraction: 0.5          # window shift as a fraction of the edge length (0.5 = half-overlapping)
+  min_cells_per_tile: 5         # tiles with fewer cells are discarded
+  min_positive_cells: 1         # a tile is positive for a marker if it contains at least this many positive cells
+
+# --- Cross-validation -------------------------------------------------------
+cv:
+  n_folds: 5                    # patient-grouped, stratified by DMG / non-DMG core
+
+# --- Classifier (lightGBM + grid search) ------------------------------------
+classifier:
+  inner_cv: 3                   # folds of the inner grid-search CV
+  scoring: roc_auc
+  n_jobs: 4                     # parallel grid-search fits
+  device: cpu                   # "cpu" or "gpu" (needs a GPU-enabled lightgbm build)
+  random_state: 1
+  param_grid:
+    num_leaves: [5, 15, 31]
+    learning_rate: [0.1, 0.01]
+    n_estimators: [200, 1000]
+    reg_alpha: [0, 0.01]
+    reg_lambda: [0, 0.01]
+
+# --- Evaluation ----------------------------------------------------------------
+evaluation:
+  threshold: 0.5                # probability threshold for accuracy, precision, recall, F1, ...
+  # Subgroups of the test block. Each filter is a metadata column (see
+  # metadata_columns) and a list of allowed values; "dmg" refers to dmg_diagnoses.
+  subgroups:
+    DMG:
+      diagnosis: dmg
+    DMG_primary:
+      diagnosis: dmg
+      dissemination: [Primary]
+    DMG_metastasis:
+      diagnosis: dmg
+      dissemination: [Metastasis]
+    other_primary_tumors:
+      diagnosis: [ATRT, HGG, LGG, Ependymoma, HGG Adult, Medulloblastom]
+      dissemination: [Primary]
+
+# --- Feature extractors ----------------------------------------------------------
+# UNI, Virchow and Prov-GigaPath are downloaded from the Hugging Face hub
+# (gated models: set HF_TOKEN). RetCCL, CTransPath and REMEDIS need local weights.
+feature_extractors:
+  batch_size: 64
+  num_workers: 4
+  device: auto                  # "auto", "cuda" or "cpu"
+  retccl:
+    weights: weights/retccl/best_ckpt.pth
+  ctranspath:
+    weights: weights/ctranspath/ctranspath.pth
+  remedis:
+    weights: weights/remedis    # TensorFlow Hub SavedModel directory

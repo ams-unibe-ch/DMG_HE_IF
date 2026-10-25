@@ -40,8 +40,10 @@ metadata_columns:
   diagnosis: Diagnosis
   dissemination: Dissemination
 
-# Diagnoses counted as DMG (used for stratifying the CV split and for subgroups)
-dmg_diagnoses: [DIPG, DMG spinal, DMG Thalamic, DMG Medulla, DMG cerebellum]
+# Diagnoses counted as DMG (used for stratifying the CV split and for the DMG subgroups).
+# Matching is exact after stripping surrounding whitespace. `dmg-he prepare` logs all
+# diagnoses found in the metadata so you can check this list.
+dmg_diagnoses: [DIPG, DMG spinal, DMG Thalamic]
 control_diagnoses: [CNTRL]
 
 # --- Markers -------------------------------------------------------------

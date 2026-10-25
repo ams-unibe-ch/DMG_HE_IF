@@ -11,7 +11,7 @@ when results are regenerated.
 | Tile/feature alignment | RetCCL, CTransPath, REMEDIS, Virchow and Prov-GigaPath scripts prepended each new batch (`pd.concat([new, old])`) and then assigned tile names in forward order, so embeddings were assigned to the wrong tiles. UNI was correct. | embeddings are stored in tile order, indexed by tile ID, and checked against the label table |
 | Minimum cells per tile | `n_cells > min_cells` (i.e. ≥ 6 for `min_cells = 5`) | `n_cells >= min_cells_per_tile` (≥ 5, as stated in the Methods) |
 | Marker without threshold for a core | tile counted as negative | tile excluded for that marker |
-| DMG definition | split stratified with DIPG / DMG spinal / DMG Thalamic; subgroup analysis additionally with DMG Medulla / DMG cerebellum | one list (`dmg_diagnoses`) used everywhere |
+| DMG definition | split stratified with DIPG / DMG spinal / DMG Thalamic; subgroup analysis additionally included DMG Medulla / DMG cerebellum | DIPG / DMG spinal / DMG Thalamic (`dmg_diagnoses`) for both the split and the subgroups |
 | Feature scaling during grid search | scaler fit once on the whole training fold before the inner CV | scaler is part of the pipeline and refit within each inner CV fold |
 | Threshold-dependent metrics | threshold at 90 % recall in the prediction scripts; 0.5 in a separate notebook | probability threshold 0.5 (configurable) |
 | CTransPath weights | loaded with `strict=False` without checking | missing weights raise an error |

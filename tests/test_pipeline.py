@@ -53,6 +53,12 @@ def test_outputs(project):
     p = cfg.paths
     meta = pd.read_csv(p.core_metadata("train"), index_col=0)
     assert len(meta) == 12 and meta.n_tiles.gt(0).all()
+    # only DIPG / DMG spinal / DMG Thalamic count as DMG (not e.g. "DMG Medulla")
+    for role in ("train", "test"):
+        m = pd.read_csv(p.core_metadata(role), index_col=0)
+        assert m.loc[m.diagnosis == "DIPG", "is_DMG"].all()
+        assert not m.loc[m.diagnosis == "DMG Medulla", "is_DMG"].any()
+        assert (m.diagnosis == "DMG Medulla").any()
     labels = pd.read_csv(p.merged_labels("train"), index_col=0)
     assert labels.n_cells.min() >= cfg.tiling["min_cells_per_tile"]
     assert (labels.x1 - labels.x0).eq(cfg.tile_size_px).all() and cfg.tile_size_px == 307

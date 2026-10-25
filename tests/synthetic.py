@@ -20,7 +20,7 @@ def _block(rng, markers, block_id, n_patients, cores_per_patient, core_px, gap=1
         patient = k // cores_per_patient
         dmg = patient % 2 == 0
         meta.append({"Name": core, "TMA": block_id, "PID": f"P{block_id}_{patient}",
-                     "Diagnosis": "DIPG" if dmg else ("HGG" if k % 3 else "CNTRL"),
+                     "Diagnosis": "DIPG" if dmg else ("DMG Medulla " if k == 3 else ("HGG" if k % 3 else "CNTRL")),
                      "Dissemination": "Primary" if k % 4 < 2 else "Metastasis"})
         oy, ox = gap + (k // ncol) * (core_px + gap), gap + (k % ncol) * (core_px + gap)
         n = 400

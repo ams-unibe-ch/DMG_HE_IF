@@ -132,6 +132,13 @@ def prepare_block(cfg: Config, role: str) -> pd.DataFrame:
 
     md = pd.DataFrame(rows).set_index("core_id")
     write_csv(md, paths.core_metadata(role))
+    counts = md.groupby(md["diagnosis"].fillna("<missing>"))["is_DMG"].agg(["size", "first"])
+    log.info("[%s] diagnoses (cores, counted as DMG):\n%s", role,
+             "\n".join(f"    {d!r}: {n} cores, DMG={bool(f)}" for d, (n, f) in counts.iterrows()))
+    unmatched = [d for d in counts.index if "DMG" in str(d).upper() and d not in dmg]
+    if unmatched:
+        log.info("[%s] note: %s contain 'DMG' but are not in dmg_diagnoses, so they are "
+                 "treated as non-DMG", role, unmatched)
     log.info("[%s] %d cores written to %s", role, len(md), paths.cores_dir(role))
     missing_thr = [c for c in md.columns if c.startswith("threshold_") and md[c].isna().any()]
     if missing_thr:

@@ -1,4 +1,9 @@
-# dmg-he: predicting spatial protein markers from H&E in pediatric DMG
+# DMG_HE_IF — predicting spatial protein markers from H&E in pediatric DMG
+
+<!-- After the first Zenodo release, replace XXXXXXX with the record number of the concept DOI -->
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX) -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-%E2%89%A53.10-blue)
 
 Code for the AI-based digital pathology analysis in
 
@@ -6,6 +11,7 @@ Code for the AI-based digital pathology analysis in
 > **Mapping the Tumor Microenvironment of Pediatric Diffuse Midline Glioma using a Spatial Proteomic Atlas with AI-Based Application.**
 > *(journal, year, DOI to be added)* — \*shared first authorship
 
+The package installs a command line tool, `dmg-he`, that runs every step of the analysis.
 From a tissue microarray (TMA) stained by multiplexed immunofluorescence (MxIF), the
 pipeline learns to predict, for 22 markers, whether a **100 µm × 100 µm tile** of the
 (virtual) H&E image contains marker-positive cells. Tiles are embedded with a pretrained
@@ -25,8 +31,8 @@ virtual H&E slide  ─┘   (cores)      (tiles,    (5 CV        (foundation mod
 Python ≥ 3.10. In a fresh virtual environment:
 
 ```bash
-git clone https://github.com/<org>/dmg-he-markers.git
-cd dmg-he-markers
+git clone https://github.com/ams-unibe-ch/DMG_HE_IF.git
+cd DMG_HE_IF
 pip install -e .              # core pipeline (tiling, lightGBM, evaluation)
 pip install -e ".[torch]"     # + RetCCL, CTransPath, UNI, Virchow, Prov-GigaPath
 pip install -e ".[remedis]"   # + REMEDIS (TensorFlow)
@@ -153,7 +159,10 @@ with the `rgb_stats` extractor (no GPU or model downloads needed).
 
 ## Citation
 
-Please cite the article above if you use this code (full reference to be added on publication).
+If you use this code, please cite the article above (full reference to be added on
+publication) and the archived software release on Zenodo (DOI to be added). GitHub's
+**"Cite this repository"** button (from [`CITATION.cff`](CITATION.cff)) provides the
+software citation in APA and BibTeX format.
 
 ## License
 

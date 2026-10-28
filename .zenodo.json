@@ -1,0 +1,149 @@
+{
+  "title": "DMG_HE_IF: prediction of spatial protein markers from H&E for \"Mapping the Tumor Microenvironment of Pediatric Diffuse Midline Glioma using a Spatial Proteomic Atlas with AI-Based Application\"",
+  "upload_type": "software",
+  "description": "Code accompanying the article \"Mapping the Tumor Microenvironment of Pediatric Diffuse Midline Glioma using a Spatial Proteomic Atlas with AI-Based Application\". The pipeline predicts the presence of marker-positive cells for 22 multiplexed immunofluorescence markers in 100 µm tiles of virtual H&E images of a pediatric brain tumor tissue microarray, using pathology foundation-model embeddings (UNI, Virchow, Prov-GigaPath, CTransPath, RetCCL, REMEDIS) and lightGBM classifiers.",
+  "creators": [
+    {
+      "name": "Laternser, Sandra",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Brüningk, Sarah",
+      "affiliation": "Department of Radiation Oncology, Inselspital, Bern University Hospital and University of Bern, Bern, Switzerland"
+    },
+    {
+      "name": "De Micheli, Andrea Joseph",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "McDonough, Elizabeth",
+      "affiliation": "GE HealthCare Technology & Innovation Center, Niskayuna, NY, USA"
+    },
+    {
+      "name": "Petrovic, Antonela",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Rushing, Elisabeth Jane",
+      "affiliation": "Pathologie Medica Enge, Zurich, Switzerland"
+    },
+    {
+      "name": "Surrette, Christine",
+      "affiliation": "GE HealthCare Technology & Innovation Center, Niskayuna, NY, USA"
+    },
+    {
+      "name": "Bugajska, Julia",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Eze, Augustine",
+      "affiliation": "Children's National Hospital, Washington, DC, USA"
+    },
+    {
+      "name": "Kopsidas, Caroline Ann",
+      "affiliation": "Children's National Hospital, Washington, DC, USA"
+    },
+    {
+      "name": "Kilburn, Lindsay B.",
+      "affiliation": "Cancer and Blood Disorders Center and Brain Tumor Institute, Children's National Hospital, Washington, DC, USA"
+    },
+    {
+      "name": "Machado, Luisa",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Dettwiler, Susanne",
+      "affiliation": "Institute of Pathology and Molecular Pathology, University Hospital Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Prutek, Fabiola",
+      "affiliation": "Institute of Pathology and Molecular Pathology, University Hospital Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Casares, Noelia",
+      "affiliation": "Health Research Institute of Navarra (IdiSNA), Pamplona, Spain; Solid Tumor Program, Center for Applied Medical Research, Pamplona, Spain"
+    },
+    {
+      "name": "de la Nava, Daniel",
+      "affiliation": "Health Research Institute of Navarra (IdiSNA), Pamplona, Spain; Solid Tumor Program, Center for Applied Medical Research, Pamplona, Spain; Department of Pediatrics, Clínica Universidad de Navarra, Pamplona, Spain"
+    },
+    {
+      "name": "Mazza, Vincenzo",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Morinigo, Denise",
+      "affiliation": "Children's National Hospital, Washington, DC, USA"
+    },
+    {
+      "name": "Ginty, Fiona",
+      "affiliation": "GE HealthCare Technology & Innovation Center, Niskayuna, NY, USA"
+    },
+    {
+      "name": "Lucas, Calixto-Hope G.",
+      "affiliation": "Department of Pathology, Johns Hopkins University School of Medicine, Baltimore, MD, USA"
+    },
+    {
+      "name": "Yadavilli, Sridevi",
+      "affiliation": "Children's National Hospital, Washington, DC, USA; George Washington University School of Medicine and Health Sciences, Washington, DC, USA"
+    },
+    {
+      "name": "Dun, Matthew D.",
+      "affiliation": "Hunter Medical Research Institute, University of Newcastle, Callaghan, NSW, Australia"
+    },
+    {
+      "name": "Grotzer, Michael",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Guerreiro Stücklin, Ana Sofia",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    },
+    {
+      "name": "Packer, Roger",
+      "affiliation": "Brain Tumor Institute, Children's National Health System, Washington, DC, USA"
+    },
+    {
+      "name": "Bornhorst, Miriam",
+      "affiliation": "Division of Oncology and Hematology, Ann & Robert H. Lurie Children's Hospital of Chicago, Chicago, IL, USA"
+    },
+    {
+      "name": "Gordish-Dressman, Heather",
+      "affiliation": "George Washington University School of Medicine and Health Sciences, Washington, DC, USA"
+    },
+    {
+      "name": "Alonso, Marta María",
+      "affiliation": "Health Research Institute of Navarra (IdiSNA), Pamplona, Spain; Solid Tumor Program, Center for Applied Medical Research, Pamplona, Spain; Department of Pediatrics, Clínica Universidad de Navarra, Pamplona, Spain"
+    },
+    {
+      "name": "Raphael, Itay",
+      "affiliation": "Institute for Drug Research, The Hebrew University of Jerusalem, Jerusalem, Israel"
+    },
+    {
+      "name": "Mueller, Sabine",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland; University of California San Francisco, San Francisco, CA, USA"
+    },
+    {
+      "name": "Kohanbash, Gary",
+      "affiliation": "University of Pittsburgh, Pittsburgh, PA, USA"
+    },
+    {
+      "name": "Nazarian, Javad",
+      "affiliation": "University Children's Hospital Zurich, University of Zurich, Zurich, Switzerland"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "diffuse midline glioma",
+    "DIPG",
+    "digital pathology",
+    "foundation models",
+    "multiplexed immunofluorescence",
+    "H&E",
+    "tissue microarray",
+    "tumor microenvironment",
+    "machine learning"
+  ],
+  "version": "1.0.0",
+  "access_right": "open"
+}

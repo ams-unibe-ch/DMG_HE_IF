@@ -9,9 +9,10 @@ Code for the AI-based digital pathology analysis in
 
 > Laternser S.\*, Brüningk S.\*, De Micheli A. J.\*, McDonough E.\*, *et al.*, Nazarian J.
 > **Mapping the Tumor Microenvironment of Pediatric Diffuse Midline Glioma using a Spatial Proteomic Atlas with AI-Based Application.**
-> *(journal, year, DOI to be added)* — \*shared first authorship
+>  \*shared first authorship
+> Primary authors: J. Bugajska; S. Brüningk
 
-The package installs a command line tool, `dmg-he`, that runs every step of the analysis.
+The package installs a commandline tool, `dmg-he`, that runs every step of the analysis.
 From a tissue microarray (TMA) stained by multiplexed immunofluorescence (MxIF), the
 pipeline learns to predict, for 22 markers, whether a **100 µm × 100 µm tile** of the
 (virtual) H&E image contains marker-positive cells. Tiles are embedded with a pretrained
@@ -57,8 +58,7 @@ Feature-extractor specifics:
 
 ## Input data
 
-The imaging and patient data are not part of this repository (see the *Data availability*
-statement of the article). Put the following files into one folder:
+The imaging and patient data are not part of this repository. Put the following files into one folder:
 
 | File | Content |
 |---|---|
